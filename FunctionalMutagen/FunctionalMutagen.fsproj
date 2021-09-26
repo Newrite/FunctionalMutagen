@@ -24,7 +24,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Order.fs" />
+    <Compile Include="LoadOrder.fs" />
+    <Compile Include="Records.fs" />
+    <Compile Include="Cache.fs" />
     <Compile Include="Scripts.fs" />
   </ItemGroup>
 
