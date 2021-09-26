@@ -8,6 +8,7 @@ open Mutagen.Bethesda.FormKeys.SkyrimSE
 open Mutagen.Bethesda.Environments
 open System.Linq
 open System.Collections.Generic
+open FSharp.Core.Fluent
 
 open Mutagen.Func.Scripts
 
@@ -60,3 +61,16 @@ entry.Scripts
       | :? ScriptObjectListProperty as property -> printfn "ObjectList: %s %A %A" property.Name property.Objects property.Flags
       | _ -> ()) s.Properties
     )
+
+let order = LoadOrder.PriorityOrderFromEnvRevers SkyrimRelease.SkyrimSE
+
+let cache = Cache.ToImmutableLinkCache order
+
+let wep = (Records.WinningOverrideRecords GetterType.Weapon order).Cast<IWeaponGetter>()
+
+wep
+  .Where(fun weapon -> not weapon.Template.IsNull)
+  .Select(fun weapon -> weapon.EditorID)
+  .Where(fun eid -> not eid.IsEmpty )
+  .Distinct()
+|>Seq.iter(fun id -> printfn "Weapon editor: %s" id)
