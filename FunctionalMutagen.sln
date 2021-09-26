@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FunctionalMutagen", "FunctionalMutagen\FunctionalMutagen.fsproj", "{940D104C-A972-457E-989B-3AA57A41C505}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FunctionalMutagenTest", "FunctionalMutagenTest\FunctionalMutagenTest.fsproj", "{5481848C-3160-4759-A88A-C0A2A6608F31}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{940D104C-A972-457E-989B-3AA57A41C505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{940D104C-A972-457E-989B-3AA57A41C505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{940D104C-A972-457E-989B-3AA57A41C505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{940D104C-A972-457E-989B-3AA57A41C505}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5481848C-3160-4759-A88A-C0A2A6608F31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5481848C-3160-4759-A88A-C0A2A6608F31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5481848C-3160-4759-A88A-C0A2A6608F31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5481848C-3160-4759-A88A-C0A2A6608F31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE9DDFDE-A58B-4798-B03F-864D69FC2271}
+	EndGlobalSection
+EndGlobal
