@@ -15,7 +15,7 @@ module private Internal =
     a.Cast<IModListingGetter<ISkyrimModGetter>>()
 
 [<RequireQualifiedAccess>]
-type GetterType =
+type private GetterType =
   |Weapon
   |Armor
 
@@ -49,9 +49,10 @@ module Cache =
   let ToUntypedImmutableLinkCache (getter: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
     getter.ToUntypedImmutableLinkCache()
 
+[<RequireQualifiedAccess>]
 module Records =
 
-  let WinningOverrideRecords getterType (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+  let private WinningOverrideRecords getterType (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
     match getterType with
     |GetterType.Weapon ->
       let result = let x = loadOrder.Weapon() in x.WinningOverrides()
@@ -59,3 +60,12 @@ module Records =
     |GetterType.Armor ->
       let result = let x = loadOrder.Armor() in x.WinningOverrides()
       result.Cast<ISkyrimMajorRecordGetter>()
+
+  [<RequireQualifiedAccess>]
+  module WinningOverrides =
+
+    let Weapon (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      (WinningOverrideRecords GetterType.Weapon loadOrder).Cast<IWeaponGetter>()
+
+    let Armor (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      (WinningOverrideRecords GetterType.Armor loadOrder).Cast<IArmorGetter>()

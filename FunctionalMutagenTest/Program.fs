@@ -66,7 +66,7 @@ let order = LoadOrder.PriorityOrderFromEnvRevers SkyrimRelease.SkyrimSE
 
 let cache = Cache.ToImmutableLinkCache order
 
-let wep = (Records.WinningOverrideRecords GetterType.Weapon order).Cast<IWeaponGetter>()
+let wep = Records.WinningOverrides.Weapon order
 
 wep
   .Where(fun weapon -> not weapon.Template.IsNull)
