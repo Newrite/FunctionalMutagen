@@ -16,7 +16,7 @@ type private GetterType =
 [<RequireQualifiedAccess>]
 module Records =
 
-  let private WinningOverrideRecords getterType (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+  let private winningOverrideRecords getterType (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
     match getterType with
     |GetterType.Weapon ->
       let result = let x = loadOrder.Weapon() in x.WinningOverrides()
@@ -29,7 +29,7 @@ module Records =
   module WinningOverrides =
 
     let Weapon (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
-      (WinningOverrideRecords GetterType.Weapon loadOrder).Cast<IWeaponGetter>()
+      (winningOverrideRecords GetterType.Weapon loadOrder).Cast<IWeaponGetter>()
 
     let Armor (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
-      (WinningOverrideRecords GetterType.Armor loadOrder).Cast<IArmorGetter>()
+      (winningOverrideRecords GetterType.Armor loadOrder).Cast<IArmorGetter>()
