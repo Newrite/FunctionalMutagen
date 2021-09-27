@@ -23,7 +23,7 @@
     <OtherFlags>--consolecolors --checked+ --sig:Signature.fsi</OtherFlags>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Program.fs" />
+    <Compile Include="src\Program.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mutagen.Bethesda" Version="0.32.0" />

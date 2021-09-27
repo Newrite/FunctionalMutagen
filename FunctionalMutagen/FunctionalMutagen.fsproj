@@ -23,10 +23,10 @@
     <OtherFlags>--consolecolors --checked+ --sig:Signature.fsi</OtherFlags>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="LoadOrder.fs" />
-    <Compile Include="Records.fs" />
-    <Compile Include="Cache.fs" />
-    <Compile Include="Scripts.fs" />
+    <Compile Include="src\LoadOrder.fs" />
+    <Compile Include="src\Records.fs" />
+    <Compile Include="src\Cache.fs" />
+    <Compile Include="src\Scripts.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mutagen.Bethesda" Version="0.32.0" />
