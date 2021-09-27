@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FunctionalMutagen", "FunctionalMutagen\FunctionalMutagen.fsproj", "{940D104C-A972-457E-989B-3AA57A41C505}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FunctionalMutagenTest", "FunctionalMutagenTest\FunctionalMutagenTest.fsproj", "{5481848C-3160-4759-A88A-C0A2A6608F31}"
+	ProjectSection(ProjectDependencies) = postProject
+		{940D104C-A972-457E-989B-3AA57A41C505} = {940D104C-A972-457E-989B-3AA57A41C505}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

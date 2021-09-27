@@ -8,7 +8,6 @@ open Mutagen.Bethesda.FormKeys.SkyrimSE
 open Mutagen.Bethesda.Environments
 open System.Linq
 open System.Collections.Generic
-open FSharp.Core.Fluent
 
 open Mutagen.Func.Scripts
 
@@ -71,6 +70,6 @@ let wep = Records.WinningOverrides.Weapon order
 wep
   .Where(fun weapon -> not weapon.Template.IsNull)
   .Select(fun weapon -> weapon.EditorID)
-  .Where(fun eid -> not eid.IsEmpty )
+  .Where(fun eid -> eid.Length > 0 )
   .Distinct()
 |>Seq.iter(fun id -> printfn "Weapon editor: %s" id)
