@@ -19,6 +19,9 @@ val outMod: Mutagen.Bethesda.Skyrim.SkyrimMod
 val LVLNPC:
   System.Collections.Generic.IEnumerable<Mutagen.Bethesda.Skyrim.ILeveledNpcGetter>
 
+val MGEFS:
+  System.Collections.Generic.IEnumerable<Mutagen.Bethesda.Skyrim.IMagicEffectGetter>
+
 val fullDeepCopyleveledNpc:
   lnpc: Mutagen.Bethesda.Skyrim.ILeveledNpcGetter
     -> Mutagen.Bethesda.Skyrim.LeveledNpc

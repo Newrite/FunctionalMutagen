@@ -9,5 +9,5 @@ open System
 [<RequireQualifiedAccess>]
 module Mods =
 
-  let CreateMod (modName: string) (skyrimRelease: SkyrimRelease) =
+  let CreateSkyrimMod (modName: string) (skyrimRelease: SkyrimRelease) =
     SkyrimMod(Plugins.ModKey.FromNameAndExtension(Path.GetFileName(modName.AsSpan())), skyrimRelease)

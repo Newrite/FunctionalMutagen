@@ -8,8 +8,6 @@ open System.Collections.Generic
 [<RequireQualifiedAccess>]
 module Records =
 
-  //type LeveledNpc = bool -> IEnumerable<IModListingGetter<ISkyrimModGetter>> -> IEnumerable<ILeveledNpcGetter>
-
   [<RequireQualifiedAccess>]
   module Weapon =
 
@@ -48,4 +46,14 @@ module Records =
     
     let WinningOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
       let result = let x = loadOrder.LeveledNpc() in x.WinningOverrides(includeDeletedRecords)
+      result
+
+  [<RequireQualifiedAccess>]
+  module MagicEffect =
+
+    let LoadOrder (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      loadOrder.MagicEffect()
+    
+    let WinningOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      let result = let x = loadOrder.MagicEffect() in x.WinningOverrides(includeDeletedRecords)
       result

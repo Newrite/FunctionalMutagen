@@ -77,13 +77,15 @@ let inline ( => ) f x = f x
 //  .Distinct()
 //|>Seq.iter(fun id -> printfn "Weapon editor: %s" id)
 
-let loadOrder = LoadOrder.PriorityOrderFromEnvRevers SkyrimRelease.SkyrimSE
+let loadOrder = LoadOrder.PriorityOrderFromEnvRevers SkyrimRelease.SkyrimLE
 
 let cacheLink = Cache.ToImmutableLinkCache loadOrder
 
-let outMod = Mods.CreateMod "Test.esp" SkyrimRelease.SkyrimSE
+let outMod = Mods.CreateSkyrimMod "Test.esp" SkyrimRelease.SkyrimLE
 
 let LVLNPC = Records.LeveledNpc.WinningOverrides false loadOrder
+
+let MGEFS = Records.MagicEffect.WinningOverrides false loadOrder
 
 let fullDeepCopyleveledNpc (lnpc: ILeveledNpcGetter) =
   let tlnpc = lnpc.DeepCopy()
@@ -116,5 +118,40 @@ LVLNPC
 |>Seq.map (fullDeepCopyleveledNpc >> setLevelForEntries)
 |>Seq.iter addAsOverrideAllLeveledNpcs
 
+let (|BlockActorValue|NoBlockActorValue|) (actorValue, dualActorValue) =
+
+  match actorValue with
+  | ActorValue.Block -> BlockActorValue
+  | ActorValue.BlockModifier -> BlockActorValue
+  | ActorValue.BlockPowerModifier -> BlockActorValue
+  | ActorValue.BlockSkillAdvance -> BlockActorValue
+  | _ ->
+    match dualActorValue with
+    | ActorValue.Block -> BlockActorValue
+    | ActorValue.BlockModifier -> BlockActorValue
+    | ActorValue.BlockPowerModifier -> BlockActorValue
+    | ActorValue.BlockSkillAdvance -> BlockActorValue
+    | _ -> NoBlockActorValue
+
+
+MGEFS
+  .Where(isNull >> not)
+  .Where(fun e ->
+    e.Archetype.Type = MagicEffectArchetype.TypeEnum.ValueModifier ||
+    e.Archetype.Type = MagicEffectArchetype.TypeEnum.PeakValueModifier ||
+    e.Archetype.Type = MagicEffectArchetype.TypeEnum.DualValueModifier)
+  .Where(fun e ->
+    match (e.Archetype.ActorValue, e.SecondActorValue) with
+    |BlockActorValue -> true
+    |NoBlockActorValue -> false)
+|>Seq.iter (fun e ->
+  let copy = e.DeepCopy()
+  outMod.MagicEffects.GetOrAddAsOverride(copy)
+  |>function
+  |over when not (isNull over) ->
+    printfn "Successfull override record."
+  |_ ->
+    printfn "Faild override record, record is null.")
+
 outMod.WriteToBinaryParallel("Test.esp")
-System.IO.File.Move("Test.esp", "G:\MO2Dev\overwrite\Test.esp", true)
+//System.IO.File.Move("Test.esp", "G:\MO2Dev\overwrite\Test.esp", true)

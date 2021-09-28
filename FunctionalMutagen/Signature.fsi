@@ -6,7 +6,7 @@ namespace Mutagen.Func
     
     module Mods =
         
-        val CreateMod:
+        val CreateSkyrimMod:
           modName: string -> skyrimRelease: Bethesda.Skyrim.SkyrimRelease
             -> Bethesda.Skyrim.SkyrimMod
 
@@ -40,35 +40,14 @@ namespace Mutagen.Func
     
     module Records =
         
-        val Weapon:
-          loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
-            -> Bethesda.Plugins.Order.Internals.TopLevelTypedLoadOrderAccess<Bethesda.Skyrim.ISkyrimMod,
-                                                                             Bethesda.Skyrim.ISkyrimModGetter,
-                                                                             Bethesda.Skyrim.IWeapon,
-                                                                             Bethesda.Skyrim.IWeaponGetter>
-        
-        val Armor:
-          loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
-            -> Bethesda.Plugins.Order.Internals.TopLevelTypedLoadOrderAccess<Bethesda.Skyrim.ISkyrimMod,
-                                                                             Bethesda.Skyrim.ISkyrimModGetter,
-                                                                             Bethesda.Skyrim.IArmor,
-                                                                             Bethesda.Skyrim.IArmorGetter>
-        
-        val Npc:
-          loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
-            -> Bethesda.Plugins.Order.Internals.TopLevelTypedLoadOrderAccess<Bethesda.Skyrim.ISkyrimMod,
-                                                                             Bethesda.Skyrim.ISkyrimModGetter,
-                                                                             Bethesda.Skyrim.INpc,
-                                                                             Bethesda.Skyrim.INpcGetter>
-        
-        val LeveledNpc:
-          loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
-            -> Bethesda.Plugins.Order.Internals.TopLevelTypedLoadOrderAccess<Bethesda.Skyrim.ISkyrimMod,
-                                                                             Bethesda.Skyrim.ISkyrimModGetter,
-                                                                             Bethesda.Skyrim.ILeveledNpc,
-                                                                             Bethesda.Skyrim.ILeveledNpcGetter>
-        
         module Weapon =
+            
+            val LoadOrder:
+              loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
+                -> Bethesda.Plugins.Order.Internals.TopLevelTypedLoadOrderAccess<Bethesda.Skyrim.ISkyrimMod,
+                                                                                 Bethesda.Skyrim.ISkyrimModGetter,
+                                                                                 Bethesda.Skyrim.IWeapon,
+                                                                                 Bethesda.Skyrim.IWeaponGetter>
             
             val WinningOverrides:
               includeDeletedRecords: bool
@@ -77,12 +56,26 @@ namespace Mutagen.Func
         
         module Armor =
             
+            val LoadOrder:
+              loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
+                -> Bethesda.Plugins.Order.Internals.TopLevelTypedLoadOrderAccess<Bethesda.Skyrim.ISkyrimMod,
+                                                                                 Bethesda.Skyrim.ISkyrimModGetter,
+                                                                                 Bethesda.Skyrim.IArmor,
+                                                                                 Bethesda.Skyrim.IArmorGetter>
+            
             val WinningOverrides:
               includeDeletedRecords: bool
               -> loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
                 -> System.Collections.Generic.IEnumerable<Bethesda.Skyrim.IArmorGetter>
         
         module Npc =
+            
+            val LoadOrder:
+              loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
+                -> Bethesda.Plugins.Order.Internals.TopLevelTypedLoadOrderAccess<Bethesda.Skyrim.ISkyrimMod,
+                                                                                 Bethesda.Skyrim.ISkyrimModGetter,
+                                                                                 Bethesda.Skyrim.INpc,
+                                                                                 Bethesda.Skyrim.INpcGetter>
             
             val WinningOverrides:
               includeDeletedRecords: bool
@@ -91,10 +84,31 @@ namespace Mutagen.Func
         
         module LeveledNpc =
             
+            val LoadOrder:
+              loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
+                -> Bethesda.Plugins.Order.Internals.TopLevelTypedLoadOrderAccess<Bethesda.Skyrim.ISkyrimMod,
+                                                                                 Bethesda.Skyrim.ISkyrimModGetter,
+                                                                                 Bethesda.Skyrim.ILeveledNpc,
+                                                                                 Bethesda.Skyrim.ILeveledNpcGetter>
+            
             val WinningOverrides:
               includeDeletedRecords: bool
               -> loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
                 -> System.Collections.Generic.IEnumerable<Bethesda.Skyrim.ILeveledNpcGetter>
+        
+        module MagicEffect =
+            
+            val LoadOrder:
+              loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
+                -> Bethesda.Plugins.Order.Internals.TopLevelTypedLoadOrderAccess<Bethesda.Skyrim.ISkyrimMod,
+                                                                                 Bethesda.Skyrim.ISkyrimModGetter,
+                                                                                 Bethesda.Skyrim.IMagicEffect,
+                                                                                 Bethesda.Skyrim.IMagicEffectGetter>
+            
+            val WinningOverrides:
+              includeDeletedRecords: bool
+              -> loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
+                -> System.Collections.Generic.IEnumerable<Bethesda.Skyrim.IMagicEffectGetter>
 
 namespace Mutagen.Func
     
