@@ -5,19 +5,27 @@
 
 module Program
 
-val test:
-  a: System.Collections.Generic.IEnumerable<Mutagen.Bethesda.Plugins.Order.IModListing<Mutagen.Bethesda.Skyrim.ISkyrimModGetter>>
-    -> System.Collections.Generic.IEnumerable<Mutagen.Bethesda.Skyrim.IWeaponGetter>
+val inline (=>) : f: ('a -> 'b) -> x: 'a -> 'b
 
-val entry: Mutagen.Bethesda.Skyrim.VirtualMachineAdapter
-
-val order:
+val loadOrder:
   seq<Mutagen.Bethesda.Plugins.Order.IModListingGetter<Mutagen.Bethesda.Skyrim.ISkyrimModGetter>>
 
-val cache:
+val cacheLink:
   Mutagen.Bethesda.Cache.Implementations.ImmutableLoadOrderLinkCache<Mutagen.Bethesda.Skyrim.ISkyrimMod,
                                                                      Mutagen.Bethesda.Skyrim.ISkyrimModGetter>
 
-val wep:
-  System.Collections.Generic.IEnumerable<Mutagen.Bethesda.Skyrim.IWeaponGetter>
+val outMod: Mutagen.Bethesda.Skyrim.SkyrimMod
+
+val LVLNPC:
+  System.Collections.Generic.IEnumerable<Mutagen.Bethesda.Skyrim.ILeveledNpcGetter>
+
+val fullDeepCopyleveledNpc:
+  lnpc: Mutagen.Bethesda.Skyrim.ILeveledNpcGetter
+    -> Mutagen.Bethesda.Skyrim.LeveledNpc
+
+val setLevelForEntries:
+  lnpc: Mutagen.Bethesda.Skyrim.LeveledNpc -> Mutagen.Bethesda.Skyrim.LeveledNpc
+
+val addAsOverrideAllLeveledNpcs:
+  lnpc: Mutagen.Bethesda.Skyrim.LeveledNpc -> unit
 

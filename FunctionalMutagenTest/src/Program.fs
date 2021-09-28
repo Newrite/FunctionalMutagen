@@ -7,69 +7,114 @@ open Mutagen.Bethesda.Skyrim
 open Mutagen.Bethesda.FormKeys.SkyrimSE
 open Mutagen.Bethesda.Environments
 open System.Linq
-open System.Collections.Generic
 
-open Mutagen.Func.Scripts
 
-//let env = GameEnvironment.Typical.Skyrim(SkyrimRelease.SkyrimSE)
+open Scripts
+open Mutagen.Bethesda.Plugins.Records
 
-let test (a: IEnumerable<IModListing<ISkyrimModGetter>>) =
-  let casted = a.Cast<IModListingGetter<ISkyrimModGetter>>()
-  let b = let x = casted.Weapon() in x.WinningOverrides()
-  b
+let inline ( => ) f x = f x
 
-//test env.LoadOrder.PriorityOrder |> printfn "%A"
+////let env = GameEnvironment.Typical.Skyrim(SkyrimRelease.SkyrimSE)
+//
+//let test (a: IEnumerable<IModListing<ISkyrimModGetter>>) =
+//  let casted = a.Cast<IModListingGetter<ISkyrimModGetter>>()
+//  let b = let x = casted.Weapon() in x.WinningOverrides()
+//  b
+//
+////test env.LoadOrder.PriorityOrder |> printfn "%A"
+//
+//let entry =
+//  VirtualMachineAdapter.New [
+//
+//    ScriptEntry.New "XPScript" [
+//      ScriptProperty.Float "AmountXP" 20.f
+//      ScriptProperty.Bool "GiveExp" true
+//      ScriptProperty.Integer "Int amount" 20
+//      ScriptProperty.String "This is string" "Hello"
+//      ScriptProperty.Object "Katana" Skyrim.Weapon.AkaviriKatana
+//    ]
+//
+//    ScriptEntry.New "XPScriptList" [
+//      ScriptProperty.FloatList "Name" [ 10.f; 20.f; 30.f ]
+//      ScriptProperty.BoolList "BoolName" [ true; false; true; true ]
+//      ScriptProperty.IntegerList "IntName" [ 10; 20; 30 ]
+//      ScriptProperty.StringList "StrName" [ "Helo"; "World"; "" ]
+//      ScriptProperty.ObjectList "ObjList" [
+//        ScriptProperty.Object "Katana" Skyrim.Weapon.AkaviriKatana
+//        ScriptProperty.Object "Armor" Skyrim.Armor.ArmorAstrid
+//        ]
+//
+//    ]
+//  ]
+//
+//entry.Scripts
+//|>Seq.iter (fun s ->
+//    Seq.iter (fun (p: ScriptProperty) -> 
+//      match p with
+//      | :? ScriptFloatProperty as property -> printfn "Float: %s %f %A" property.Name property.Data property.Flags
+//      | :? ScriptBoolProperty as property -> printfn "Bool: %s %b %A" property.Name property.Data property.Flags
+//      | :? ScriptIntProperty as property -> printfn "Int: %s %d %A" property.Name property.Data property.Flags
+//      | :? ScriptStringProperty as property -> printfn "String: %s %s %A" property.Name property.Data property.Flags
+//      | :? ScriptObjectProperty as property -> printfn "Object: %s %A %A" property.Name property.Object property.Flags
+//      | :? ScriptFloatListProperty as property -> printfn "FloatList: %s %A %A" property.Name property.Data property.Flags
+//      | :? ScriptBoolListProperty as property -> printfn "BoolList: %s %A %A" property.Name property.Data property.Flags
+//      | :? ScriptStringListProperty as property -> printfn "StringList: %s %A %A" property.Name property.Data property.Flags
+//      | :? ScriptIntListProperty as property -> printfn "IntList: %s %A %A" property.Name property.Data property.Flags
+//      | :? ScriptObjectListProperty as property -> printfn "ObjectList: %s %A %A" property.Name property.Objects property.Flags
+//      | _ -> ()) s.Properties
+//    )
+//
+//let order = LoadOrder.PriorityOrderFromEnvRevers SkyrimRelease.SkyrimSE
+//
+//let cache = Cache.ToImmutableLinkCache order
+//
+//let wep = Records.WinningOverrides.LeveledNpc false order
+//
+//wep
+//  .Where(fun weapon -> not weapon.IsDeleted)
+//  .Select(fun weapon -> weapon.EditorID)
+//  .Where(fun eid -> eid.Length > 0 )
+//  .Distinct()
+//|>Seq.iter(fun id -> printfn "Weapon editor: %s" id)
 
-let entry =
-  VirtualMachineAdapter.New [
+let loadOrder = LoadOrder.PriorityOrderFromEnvRevers SkyrimRelease.SkyrimSE
 
-    ScriptEntry.New "XPScript" [
-      ScriptProperty.Float "AmountXP" 20.f
-      ScriptProperty.Bool "GiveExp" true
-      ScriptProperty.Integer "Int amount" 20
-      ScriptProperty.String "This is string" "Hello"
-      ScriptProperty.Object "Katana" Skyrim.Weapon.AkaviriKatana
-    ]
+let cacheLink = Cache.ToImmutableLinkCache loadOrder
 
-    ScriptEntry.New "XPScriptList" [
-      ScriptProperty.FloatList "Name" [ 10.f; 20.f; 30.f ]
-      ScriptProperty.BoolList "BoolName" [ true; false; true; true ]
-      ScriptProperty.IntegerList "IntName" [ 10; 20; 30 ]
-      ScriptProperty.StringList "StrName" [ "Helo"; "World"; "" ]
-      ScriptProperty.ObjectList "ObjList" [
-        ScriptProperty.Object "Katana" Skyrim.Weapon.AkaviriKatana
-        ScriptProperty.Object "Armor" Skyrim.Armor.ArmorAstrid
-        ]
+let outMod = Mods.CreateMod "Test.esp" SkyrimRelease.SkyrimSE
 
-    ]
-  ]
+let LVLNPC = Records.LeveledNpc.WinningOverrides false loadOrder
 
-entry.Scripts
-|>Seq.iter (fun s ->
-    Seq.iter (fun (p: ScriptProperty) -> 
-      match p with
-      | :? ScriptFloatProperty as property -> printfn "Float: %s %f %A" property.Name property.Data property.Flags
-      | :? ScriptBoolProperty as property -> printfn "Bool: %s %b %A" property.Name property.Data property.Flags
-      | :? ScriptIntProperty as property -> printfn "Int: %s %d %A" property.Name property.Data property.Flags
-      | :? ScriptStringProperty as property -> printfn "String: %s %s %A" property.Name property.Data property.Flags
-      | :? ScriptObjectProperty as property -> printfn "Object: %s %A %A" property.Name property.Object property.Flags
-      | :? ScriptFloatListProperty as property -> printfn "FloatList: %s %A %A" property.Name property.Data property.Flags
-      | :? ScriptBoolListProperty as property -> printfn "BoolList: %s %A %A" property.Name property.Data property.Flags
-      | :? ScriptStringListProperty as property -> printfn "StringList: %s %A %A" property.Name property.Data property.Flags
-      | :? ScriptIntListProperty as property -> printfn "IntList: %s %A %A" property.Name property.Data property.Flags
-      | :? ScriptObjectListProperty as property -> printfn "ObjectList: %s %A %A" property.Name property.Objects property.Flags
-      | _ -> ()) s.Properties
-    )
+let fullDeepCopyleveledNpc (lnpc: ILeveledNpcGetter) =
+  let tlnpc = lnpc.DeepCopy()
+  tlnpc
 
-let order = LoadOrder.PriorityOrderFromEnvRevers SkyrimRelease.SkyrimSE
+let setLevelForEntries (lnpc: LeveledNpc) =
 
-let cache = Cache.ToImmutableLinkCache order
+  let setLevel level =
+    match level with
+    |l when l < 15s -> 1s
+    |l when l >= 15s && l < 30s -> 15s
+    |_ -> 30s
 
-let wep = Records.WinningOverrides.Weapon order
+  lnpc.Entries |> Seq.iter (fun npc ->
+    npc.Data.Level <- setLevel npc.Data.Level)
+  lnpc
 
-wep
-  .Where(fun weapon -> not weapon.Template.IsNull)
-  .Select(fun weapon -> weapon.EditorID)
-  .Where(fun eid -> eid.Length > 0 )
+let addAsOverrideAllLeveledNpcs (lnpc: LeveledNpc) =
+  outMod.LeveledNpcs.GetOrAddAsOverride(lnpc)
+  |>function
+  |over when not (isNull over) ->
+    printfn "Successfull override record."
+  |_ ->
+    printfn "Faild override record, record is null."
+
+LVLNPC
+  .Where(isNull >> not)
+  .Where(fun lnpc -> not <| isNull lnpc.Entries)
   .Distinct()
-|>Seq.iter(fun id -> printfn "Weapon editor: %s" id)
+|>Seq.map (fullDeepCopyleveledNpc >> setLevelForEntries)
+|>Seq.iter addAsOverrideAllLeveledNpcs
+
+outMod.WriteToBinaryParallel("Test.esp")
+System.IO.File.Move("Test.esp", "G:\MO2Dev\overwrite\Test.esp", true)

@@ -6,7 +6,6 @@ open Mutagen.Bethesda.Skyrim
 open Mutagen.Bethesda.Environments
 open System.Linq
 open System.Collections.Generic
-open Mutagen.Bethesda.Skyrim
 
 
 module private Internal =

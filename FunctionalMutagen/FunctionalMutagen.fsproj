@@ -23,6 +23,7 @@
     <OtherFlags>--consolecolors --checked+ --sig:Signature.fsi</OtherFlags>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\Mods.fs" />
     <Compile Include="src\LoadOrder.fs" />
     <Compile Include="src\Records.fs" />
     <Compile Include="src\Cache.fs" />

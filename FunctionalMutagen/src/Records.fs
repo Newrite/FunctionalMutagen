@@ -1,35 +1,51 @@
 ﻿namespace Mutagen.Func
 
-open Mutagen.Bethesda
 open Mutagen.Bethesda.Plugins.Order
 open Mutagen.Bethesda.Skyrim
-open Mutagen.Bethesda.Environments
 open System.Linq
 open System.Collections.Generic
-open Mutagen.Bethesda.Skyrim
-
-[<RequireQualifiedAccess>]
-type private GetterType =
-  |Weapon
-  |Armor
 
 [<RequireQualifiedAccess>]
 module Records =
 
-  let private winningOverrideRecords getterType (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
-    match getterType with
-    |GetterType.Weapon ->
-      let result = let x = loadOrder.Weapon() in x.WinningOverrides()
-      result.Cast<ISkyrimMajorRecordGetter>()
-    |GetterType.Armor ->
-      let result = let x = loadOrder.Armor() in x.WinningOverrides()
-      result.Cast<ISkyrimMajorRecordGetter>()
+  //type LeveledNpc = bool -> IEnumerable<IModListingGetter<ISkyrimModGetter>> -> IEnumerable<ILeveledNpcGetter>
 
   [<RequireQualifiedAccess>]
-  module WinningOverrides =
+  module Weapon =
 
-    let Weapon (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
-      (winningOverrideRecords GetterType.Weapon loadOrder).Cast<IWeaponGetter>()
+    let LoadOrder (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      loadOrder.Weapon()
+    
+    let WinningOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      let result = let x = loadOrder.Weapon() in x.WinningOverrides(includeDeletedRecords)
+      result
 
-    let Armor (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
-      (winningOverrideRecords GetterType.Armor loadOrder).Cast<IArmorGetter>()
+  [<RequireQualifiedAccess>]
+  module Armor =
+
+    let LoadOrder (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      loadOrder.Armor()
+    
+    let WinningOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      let result = let x = loadOrder.Armor() in x.WinningOverrides(includeDeletedRecords)
+      result
+
+  [<RequireQualifiedAccess>]
+  module Npc =
+
+    let LoadOrder (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      loadOrder.Npc()
+    
+    let WinningOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      let result = let x = loadOrder.Npc() in x.WinningOverrides(includeDeletedRecords)
+      result
+
+  [<RequireQualifiedAccess>]
+  module LeveledNpc =
+
+    let LoadOrder (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      loadOrder.LeveledNpc()
+    
+    let WinningOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      let result = let x = loadOrder.LeveledNpc() in x.WinningOverrides(includeDeletedRecords)
+      result
