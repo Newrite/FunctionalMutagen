@@ -365,3 +365,5 @@ FodyWeavers.xsd
 #Paket dependency manager
 .paket/
 paket-files/
+/build
+/build.fsx.lock

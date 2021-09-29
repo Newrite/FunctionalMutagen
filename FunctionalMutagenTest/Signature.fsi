@@ -32,3 +32,7 @@ val setLevelForEntries:
 val addAsOverrideAllLeveledNpcs:
   lnpc: Mutagen.Bethesda.Skyrim.LeveledNpc -> unit
 
+val (|BlockActorValue|NoBlockActorValue|) :
+  actorValue: Mutagen.Bethesda.Skyrim.ActorValue *
+  dualActorValue: Mutagen.Bethesda.Skyrim.ActorValue -> Choice<unit,unit>
+
