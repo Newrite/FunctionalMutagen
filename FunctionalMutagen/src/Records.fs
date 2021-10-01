@@ -2,7 +2,6 @@
 
 open Mutagen.Bethesda.Plugins.Order
 open Mutagen.Bethesda.Skyrim
-open System.Linq
 open System.Collections.Generic
 
 [<RequireQualifiedAccess>]
@@ -11,8 +10,9 @@ module Records =
   [<RequireQualifiedAccess>]
   module Weapon =
 
-    let LoadOrder (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
-      loadOrder.Weapon()
+    let WinningContextOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      let result = let x = loadOrder.Weapon() in x.WinningContextOverrides(includeDeletedRecords)
+      result
     
     let WinningOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
       let result = let x = loadOrder.Weapon() in x.WinningOverrides(includeDeletedRecords)
@@ -21,8 +21,9 @@ module Records =
   [<RequireQualifiedAccess>]
   module Armor =
 
-    let LoadOrder (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
-      loadOrder.Armor()
+    let WinningContextOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      let result = let x = loadOrder.Armor() in x.WinningContextOverrides(includeDeletedRecords)
+      result
     
     let WinningOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
       let result = let x = loadOrder.Armor() in x.WinningOverrides(includeDeletedRecords)
@@ -31,8 +32,9 @@ module Records =
   [<RequireQualifiedAccess>]
   module Npc =
 
-    let LoadOrder (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
-      loadOrder.Npc()
+    let WinningContextOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      let result = let x = loadOrder.Npc() in x.WinningContextOverrides(includeDeletedRecords)
+      result
     
     let WinningOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
       let result = let x = loadOrder.Npc() in x.WinningOverrides(includeDeletedRecords)
@@ -41,8 +43,9 @@ module Records =
   [<RequireQualifiedAccess>]
   module LeveledNpc =
 
-    let LoadOrder (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
-      loadOrder.LeveledNpc()
+    let WinningContextOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      let result = let x = loadOrder.LeveledNpc() in x.WinningContextOverrides(includeDeletedRecords)
+      result
     
     let WinningOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
       let result = let x = loadOrder.LeveledNpc() in x.WinningOverrides(includeDeletedRecords)
@@ -51,8 +54,9 @@ module Records =
   [<RequireQualifiedAccess>]
   module MagicEffect =
 
-    let LoadOrder (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
-      loadOrder.MagicEffect()
+    let WinningContextOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
+      let result = let x = loadOrder.MagicEffect() in x.WinningContextOverrides(includeDeletedRecords)
+      result
     
     let WinningOverrides includeDeletedRecords (loadOrder: IEnumerable<IModListingGetter<ISkyrimModGetter>>) =
       let result = let x = loadOrder.MagicEffect() in x.WinningOverrides(includeDeletedRecords)

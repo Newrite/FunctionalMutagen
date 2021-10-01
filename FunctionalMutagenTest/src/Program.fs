@@ -77,6 +77,7 @@ let inline ( => ) f x = f x
 //  .Distinct()
 //|>Seq.iter(fun id -> printfn "Weapon editor: %s" id)
 
+
 let loadOrder = LoadOrder.PriorityOrderFromEnvRevers SkyrimRelease.SkyrimLE
 
 let cacheLink = Cache.ToImmutableLinkCache loadOrder
@@ -155,3 +156,4 @@ MGEFS
 
 outMod.WriteToBinaryParallel("Test.esp")
 //System.IO.File.Move("Test.esp", "G:\MO2Dev\overwrite\Test.esp", true)
+

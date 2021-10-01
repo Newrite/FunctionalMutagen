@@ -47,26 +47,26 @@ module Scripts =
     let Object name (object: Plugins.FormLink<#ISkyrimMajorRecordGetter>) =  //Need cast and flex type for interop with C#
       new ScriptObjectProperty(Name = name, Object = object.Cast<ISkyrimMajorRecordGetter>())
 
-    ///<summary>Create new ScriptFloatListProperty, field name and float32 list value.</summary>
-    let FloatList name values =
-      new ScriptFloatListProperty(Name = name, Data = buildExtendList values)
+    ///<summary>Create new ScriptFloatListProperty, field float32 list value.</summary>
+    let FloatList values =
+      new ScriptFloatListProperty(Data = buildExtendList values)
 
-    ///<summary>Create new ScriptBoolListProperty, field name and bool list value.</summary>
-    let BoolList name values =
-      new ScriptBoolListProperty(Name = name, Data = buildExtendList values)
+    ///<summary>Create new ScriptBoolListProperty, field bool list value.</summary>
+    let BoolList values =
+      new ScriptBoolListProperty(Data = buildExtendList values)
 
-    ///<summary>Create new ScriptStringListProperty, field name and string list value.</summary>
-    let StringList name values =
-      new ScriptStringListProperty(Name = name, Data = buildExtendList values)
+    ///<summary>Create new ScriptStringListProperty, field string list value.</summary>
+    let StringList values =
+      new ScriptStringListProperty(Data = buildExtendList values)
 
-    ///<summary>Create new ScriptIntListProperty, field name and int list value.</summary>
-    let IntegerList name values =
-      new ScriptIntListProperty(Name = name, Data = buildExtendList values)
+    ///<summary>Create new ScriptIntListProperty, field int list value.</summary>
+    let IntegerList values =
+      new ScriptIntListProperty(Data = buildExtendList values)
 
-    ///<summary>Create new ScriptObjectListProperty, field name and Bethesda objects, 
+    ///<summary>Create new ScriptObjectListProperty, field Bethesda objects, 
     ///for create list of objects use Scripts.ScriptProperty.Object.</summary>
-    let ObjectList name (values: ScriptObjectProperty list) =
-      new ScriptObjectListProperty(Name = name, Objects = buildExtendList values)
+    let ObjectList (values: ScriptObjectProperty list) =
+      new ScriptObjectListProperty(Objects = buildExtendList values)
 
   [<RequireQualifiedAccess>]
   module VirtualMachineAdapter =

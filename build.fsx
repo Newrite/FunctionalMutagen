@@ -13,6 +13,7 @@ let buildDir = "./build/"
 let buildTestPatcherDir = buildDir + "Patcher/"
 let buildLibDir = buildDir + "Lib/"
 let skyrimDir = @"G:\MO2Dev\overwrite"
+let projectPatcherDir = @"G:\Programming\Languages\F#\SkyrimPatcher\SkyrimPatcher\lib\"
 
 Target.create "Clean" (fun _ ->
   Shell.cleanDir buildDir
@@ -60,11 +61,16 @@ Target.create "MovePatcher" (fun _ ->
   Shell.copyFile skyrimDir (buildTestPatcherDir + "FunctionalMutagenTest.exe")
 )
 
+Target.create "MoveLibToPatcherProject" (fun _ ->
+  Shell.copyFile projectPatcherDir (buildLibDir + "FunctionalMutagen.dll")
+)
+
 open Fake.Core.TargetOperators
 
 "Clean"
   ==> "BuildLib"
   ==> "PublishPatcher"
+  ==> "MoveLibToPatcherProject"
   ==> "MovePatcher"
 
 Target.runOrDefault "MovePatcher"
