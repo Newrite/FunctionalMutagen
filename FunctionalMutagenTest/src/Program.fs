@@ -78,15 +78,15 @@ let inline ( => ) f x = f x
 //|>Seq.iter(fun id -> printfn "Weapon editor: %s" id)
 
 
-let loadOrder = LoadOrder.PriorityOrderFromEnvRevers SkyrimRelease.SkyrimLE
+let loadOrder = LoadOrder.skyrimPriorityOrderFromEnvRevers SkyrimRelease.SkyrimLE
 
-let cacheLink = Cache.ToImmutableLinkCache loadOrder
+let cacheLink = Cache.toImmutableLinkCache loadOrder
 
-let outMod = Mods.CreateSkyrimMod "Test.esp" SkyrimRelease.SkyrimLE
+let outMod = Mods.createSkyrimMod "Test.esp" SkyrimRelease.SkyrimLE
 
-let LVLNPC = Records.LeveledNpc.WinningOverrides false loadOrder
+let LVLNPC = Records.Skyrim.LeveledNpc.winningOverrides false loadOrder
 
-let MGEFS = Records.MagicEffect.WinningOverrides false loadOrder
+let MGEFS = Records.Skyrim.MagicEffect.winningOverrides false loadOrder
 
 let fullDeepCopyleveledNpc (lnpc: ILeveledNpcGetter) =
   let tlnpc = lnpc.DeepCopy()

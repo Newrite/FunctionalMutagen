@@ -16,7 +16,7 @@ module Mods =
 
   ///<summary>
   ///Function for create a new skyrim mod, fields mod name, name must include file extension, 
-  ///and SkyrimRelease Enum from Mutagen.Bethesda.Skyrim namaspace
+  ///and SkyrimRelease Enum from Mutagen.Bethesda.Skyrim namespace
   ///</summary>
   let createSkyrimMod (modName: string) (skyrimRelease: SkyrimRelease) =
     SkyrimMod(Plugins.ModKey.FromNameAndExtension(Path.GetFileName(modName.AsSpan())), skyrimRelease)
