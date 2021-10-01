@@ -173,30 +173,26 @@ namespace Mutagen.Func
                 when 'a :> Bethesda.Skyrim.ISkyrimMajorRecordGetter and
                      'a: not struct
             
-            ///<summary>Create new ScriptFloatListProperty, field name and float32 list value.</summary>
+            ///<summary>Create new ScriptFloatListProperty, field float32 list value.</summary>
             val FloatList:
-              name: string -> values: float32 list
-                -> Bethesda.Skyrim.ScriptFloatListProperty
+              values: float32 list -> Bethesda.Skyrim.ScriptFloatListProperty
             
-            ///<summary>Create new ScriptBoolListProperty, field name and bool list value.</summary>
+            ///<summary>Create new ScriptBoolListProperty, field bool list value.</summary>
             val BoolList:
-              name: string -> values: bool list
-                -> Bethesda.Skyrim.ScriptBoolListProperty
+              values: bool list -> Bethesda.Skyrim.ScriptBoolListProperty
             
-            ///<summary>Create new ScriptStringListProperty, field name and string list value.</summary>
+            ///<summary>Create new ScriptStringListProperty, field string list value.</summary>
             val StringList:
-              name: string -> values: string list
-                -> Bethesda.Skyrim.ScriptStringListProperty
+              values: string list -> Bethesda.Skyrim.ScriptStringListProperty
             
-            ///<summary>Create new ScriptIntListProperty, field name and int list value.</summary>
+            ///<summary>Create new ScriptIntListProperty, field int list value.</summary>
             val IntegerList:
-              name: string -> values: int list
-                -> Bethesda.Skyrim.ScriptIntListProperty
+              values: int list -> Bethesda.Skyrim.ScriptIntListProperty
             
-            ///<summary>Create new ScriptObjectListProperty, field name and Bethesda objects, 
+            ///<summary>Create new ScriptObjectListProperty, field Bethesda objects, 
             ///for create list of objects use Scripts.ScriptProperty.Object.</summary>
             val ObjectList:
-              name: string -> values: Bethesda.Skyrim.ScriptObjectProperty list
+              values: Bethesda.Skyrim.ScriptObjectProperty list
                 -> Bethesda.Skyrim.ScriptObjectListProperty
         
         module VirtualMachineAdapter =

@@ -62,7 +62,12 @@ Target.create "MovePatcher" (fun _ ->
 )
 
 Target.create "MoveLibToPatcherProject" (fun _ ->
-  Shell.copyFile projectPatcherDir (buildLibDir + "FunctionalMutagen.dll")
+  Shell.copyFiles projectPatcherDir [ 
+    buildLibDir + "FunctionalMutagen.dll"
+    buildLibDir + "FunctionalMutagen.xml"
+    buildLibDir + "FunctionalMutagen.pdb"
+    buildLibDir + "FunctionalMutagen.deps.json"
+  ]
 )
 
 open Fake.Core.TargetOperators
