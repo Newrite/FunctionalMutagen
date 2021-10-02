@@ -12,5 +12,4 @@ Look this
     Scripts.ScriptEntry.create "XP" [
       Scripts.ScriptProperty.float "XPStaticAmount" staticAmount
       Scripts.ScriptProperty.float "XPMultAmount" multAmount
-    ]
-```
+    ]```
