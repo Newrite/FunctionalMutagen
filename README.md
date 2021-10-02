@@ -4,6 +4,8 @@ Functional wrapper for Mutagen.Bethesda library, check it here: https://github.c
 
 The library aims to improve the use of the mutagen from F#, because F# is not very user-friendly when using C# libraries. It also adds a bit of functional use of some of the methods now wrapped in functions.
 
+Open Mutagen.Func after add library and get started.
+
 ###  Some script create DSL
 
 
@@ -67,4 +69,24 @@ Just new property.
 		Scripts.ScriptProperty.object "someobject" Skyrim.Weapon.AkaviriKatana // FormKeys from Mutagen.Bethesda.FormKeys lib
 		Scripts.ScriptProperty.object "someobject" Skyrim.Armor.ArmorAstrid // FormKeys from Mutagen.Bethesda.FormKeys lib
 	]
+```
+
+### Create new mod
+
+Create mod for write records to this mod.
+
+```FSharp
+let modName = "SomePatchEsp.esp"
+let newMod = Mods.createSkyrimMod modName SkyrimRelease.SkyrimLE
+```
+
+Functions for create mods locate in `Mods` module. You just need choose right function, name for mod and mb game release if function need this.
+
+
+After work with mod don't fogget write this with default Mutagen method.
+
+```FSharp
+newMod.WriteToBinaryParallel(modName)
+//or
+newMod.WriteToBinary(modName)
 ```
