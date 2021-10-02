@@ -304,28 +304,32 @@ namespace Mutagen.Func
                      'a: not struct
             
             ///<summary>
-            ///Create new ScriptFloatListProperty, field float32 list value.
+            ///Create new ScriptFloatListProperty, field name and float32 list value.
             ///</summary>
             val floatList:
-              values: float32 list -> Bethesda.Skyrim.ScriptFloatListProperty
+              name: string -> values: float32 list
+                -> Bethesda.Skyrim.ScriptFloatListProperty
             
             ///<summary>
-            ///Create new ScriptBoolListProperty, field bool list value.
+            ///Create new ScriptBoolListProperty, field name and bool list value.
             ///</summary>
             val boolList:
-              values: bool list -> Bethesda.Skyrim.ScriptBoolListProperty
+              name: string -> values: bool list
+                -> Bethesda.Skyrim.ScriptBoolListProperty
             
             ///<summary>
-            ///Create new ScriptStringListProperty, field string list value.
+            ///Create new ScriptStringListProperty, field name and string list value.
             ///</summary>
             val stringList:
-              values: string list -> Bethesda.Skyrim.ScriptStringListProperty
+              name: string -> values: string list
+                -> Bethesda.Skyrim.ScriptStringListProperty
             
             ///<summary>
-            ///Create new ScriptIntListProperty, field int list value.
+            ///Create new ScriptIntListProperty, field name and int list value.
             ///</summary>
             val integerList:
-              values: int list -> Bethesda.Skyrim.ScriptIntListProperty
+              name: string -> values: int list
+                -> Bethesda.Skyrim.ScriptIntListProperty
             
             ///<summary>
             ///Create new ScriptObjectListProperty, field Bethesda objects, 

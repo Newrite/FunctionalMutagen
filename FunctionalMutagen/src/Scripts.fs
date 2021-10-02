@@ -66,28 +66,28 @@ module Scripts =
       new ScriptObjectProperty(Name = name, Object = object.Cast<ISkyrimMajorRecordGetter>())
 
     ///<summary>
-    ///Create new ScriptFloatListProperty, field float32 list value.
+    ///Create new ScriptFloatListProperty, field name and float32 list value.
     ///</summary>
-    let floatList values =
-      new ScriptFloatListProperty(Data = buildExtendList values)
+    let floatList name values =
+      new ScriptFloatListProperty(Name = name, Data = buildExtendList values)
 
     ///<summary>
-    ///Create new ScriptBoolListProperty, field bool list value.
+    ///Create new ScriptBoolListProperty, field name and bool list value.
     ///</summary>
-    let boolList values =
-      new ScriptBoolListProperty(Data = buildExtendList values)
+    let boolList name values =
+      new ScriptBoolListProperty(Name = name, Data = buildExtendList values)
 
     ///<summary>
-    ///Create new ScriptStringListProperty, field string list value.
+    ///Create new ScriptStringListProperty, field name and string list value.
     ///</summary>
-    let stringList values =
-      new ScriptStringListProperty(Data = buildExtendList values)
+    let stringList name values =
+      new ScriptStringListProperty(Name = name, Data = buildExtendList values)
 
     ///<summary>
-    ///Create new ScriptIntListProperty, field int list value.
+    ///Create new ScriptIntListProperty, field name and int list value.
     ///</summary>
-    let integerList values =
-      new ScriptIntListProperty(Data = buildExtendList values)
+    let integerList name values =
+      new ScriptIntListProperty(Name = name, Data = buildExtendList values)
 
     ///<summary>
     ///Create new ScriptObjectListProperty, field Bethesda objects, 

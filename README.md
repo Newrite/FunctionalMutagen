@@ -6,7 +6,7 @@ The library aims to improve the use of the mutagen from F#, because F# is not ve
 
 Open Mutagen.Func after add library and get started.
 
-###  Some script create DSL
+##  Some script create DSL
 
 
 ```FSHarp
@@ -71,7 +71,7 @@ Just new property.
 	]
 ```
 
-### Create new mod
+## Create new mod
 
 Create mod for write records to this mod.
 

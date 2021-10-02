@@ -10,9 +10,7 @@ open Fake.IO
 open Fake.DotNet
 
 let buildDir = "./build/"
-let buildTestPatcherDir = buildDir + "Patcher/"
 let buildLibDir = buildDir + "Lib/"
-let skyrimDir = @"G:\MO2Dev\overwrite"
 let projectPatcherDir = @"G:\Programming\Languages\F#\SkyrimPatcher\SkyrimPatcher\lib\"
 
 Target.create "Clean" (fun _ ->
@@ -37,28 +35,12 @@ Target.create "BuildLib" (fun _ ->
   DotNet.build setBuildParamLib "./FunctionalMutagen/FunctionalMutagen.fsproj"
 )
 
-Target.create "PublishPatcher" (fun _ ->
+Target.create "TestLib" (fun _ ->
 
-  let setPublishParamExe (defaults: DotNet.PublishOptions) =
-    { defaults with
-        Runtime = Some "win-x64"
-        OutputPath = Some buildTestPatcherDir
-        SelfContained = Some true
-        MSBuildParams =
-        { MSBuild.CliArguments.Create() with
-            Properties =
-            [
-              "Optimize", "True"
-              "PublishSingleFile", "True"
-            ]
-        }
-    }
+  let setBuildParamLib (defaults: DotNet.TestOptions) =
+    defaults
   
-  DotNet.publish setPublishParamExe "./FunctionalMutagenTest/FunctionalMutagenTest.fsproj"
-)
-
-Target.create "MovePatcher" (fun _ ->
-  Shell.copyFile skyrimDir (buildTestPatcherDir + "FunctionalMutagenTest.exe")
+  DotNet.test setBuildParamLib "./FunctionalMutagen.Tests/FunctionalMutagen.Tests.fsproj"
 )
 
 Target.create "MoveLibToPatcherProject" (fun _ ->
@@ -74,8 +56,7 @@ open Fake.Core.TargetOperators
 
 "Clean"
   ==> "BuildLib"
-  ==> "PublishPatcher"
+  ==> "TestLib"
   ==> "MoveLibToPatcherProject"
-  ==> "MovePatcher"
 
-Target.runOrDefault "MovePatcher"
+Target.runOrDefault "MoveLibToPatcherProject"
