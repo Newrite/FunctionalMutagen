@@ -211,6 +211,33 @@ namespace Mutagen.Func
                   includeDeletedRecords: bool
                   -> loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
                     -> System.Collections.Generic.IEnumerable<Bethesda.Skyrim.IMagicEffectGetter>
+            
+            module Perks =
+                
+                ///<summary>
+                ///Get context Perk records with last overrides in given load order, load order can get from Mutagen.Func.LoadOrder
+                ///
+                ///Original description of method:
+                ///Will find and return the most overridden version of each record in the list of mods of the given type. <br /><br />
+                ///            Additionally, it will come wrapped in a context object that has knowledge of where each record came from. <br />
+                ///            This context helps when trying to override deep records such as Cells/PlacedObjects/etc, as the context is able to navigate
+                ///            and insert the record into the proper location for you.
+                ///</summary>
+                val winningContextOverrides:
+                  includeDeletedRecords: bool
+                  -> loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
+                    -> System.Collections.Generic.IEnumerable<Bethesda.Plugins.Cache.IModContext<Bethesda.Skyrim.ISkyrimMod,
+                                                                                                 Bethesda.Skyrim.ISkyrimModGetter,
+                                                                                                 Bethesda.Skyrim.IPerk,
+                                                                                                 Bethesda.Skyrim.IPerkGetter>>
+                
+                ///<summary>
+                ///Get Perk records with last overrides in given load order, load order can get from Mutagen.Func.LoadOrder
+                ///</summary>
+                val winningOverrides:
+                  includeDeletedRecords: bool
+                  -> loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
+                    -> System.Collections.Generic.IEnumerable<Bethesda.Skyrim.IPerkGetter>
 
 namespace Mutagen.Func
     
@@ -227,8 +254,8 @@ namespace Mutagen.Func
         ///</summary>
         val toImmutableLinkCache:
           loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
-            -> Bethesda.Cache.Implementations.ImmutableLoadOrderLinkCache<Bethesda.Skyrim.ISkyrimMod,
-                                                                          Bethesda.Skyrim.ISkyrimModGetter>
+            -> Bethesda.Plugins.Cache.Internals.Implementations.ImmutableLoadOrderLinkCache<Bethesda.Skyrim.ISkyrimMod,
+                                                                                            Bethesda.Skyrim.ISkyrimModGetter>
         
         ///<summary>
         ///Origianl description:
@@ -238,7 +265,7 @@ namespace Mutagen.Func
         ///</summary>
         val toUntypedImmutableLinkCache:
           loadOrder: System.Collections.Generic.IEnumerable<Bethesda.Plugins.Order.IModListingGetter<Bethesda.Skyrim.ISkyrimModGetter>>
-            -> Bethesda.Cache.Implementations.ImmutableLoadOrderLinkCache
+            -> Bethesda.Plugins.Cache.Internals.Implementations.ImmutableLoadOrderLinkCache
 
 namespace Mutagen.Func
     
@@ -342,9 +369,24 @@ namespace Mutagen.Func
         module VirtualMachineAdapter =
             
             ///<summary>
-            ///Create new VirtualMachineAdapter, can fill ScriptEntry list with Scripts.ScriptEntry.New.
+            ///Create new VirtualMachineAdapter, add ScriptEntry with Scripts.ScriptEntry.create.
             ///</summary>
-            val create:
+            val createWithScript:
+              scriptEntryList: Bethesda.Skyrim.ScriptEntry
+                -> Bethesda.Skyrim.VirtualMachineAdapter
+            
+            ///<summary>
+            ///Create new VirtualMachineAdapter, fill ScriptEntry list with Scripts.ScriptEntry.create.
+            ///</summary>
+            val createWithScripts:
               scriptEntryList: Bethesda.Skyrim.ScriptEntry list
                 -> Bethesda.Skyrim.VirtualMachineAdapter
+            
+            val ensureVMAExistAddScript:
+              record: inref<#Bethesda.Skyrim.IScripted>
+              -> script: Bethesda.Skyrim.ScriptEntry -> unit
+            
+            val ensureVMAExistAddScripts:
+              record: inref<#Bethesda.Skyrim.IScripted>
+              -> scripts: Bethesda.Skyrim.ScriptEntry list -> unit
 

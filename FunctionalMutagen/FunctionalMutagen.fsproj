@@ -31,8 +31,7 @@
     <Compile Include="src\Scripts.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Mutagen.Bethesda" Version="0.32.0" />
-    <PackageReference Include="FSharp.Core" Version="6.0.0" />
+    <PackageReference Include="Mutagen.Bethesda" Version="0.33.7-pr001" />
+    <PackageReference Include="Mutagen.Bethesda.FormKeys.SkyrimSE" Version="2.1.0" />
   </ItemGroup>
-  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

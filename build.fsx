@@ -1,9 +1,9 @@
-#r "paket:
-nuget Fake.Core.Target
-nuget Fake.DotNet.Cli
-nuget Fake.IO.FileSystem
-nuget FSharp.Core 5.0.0 //"
-#load "./.fake/build.fsx/intellisense.fsx"
+#r "nuget: Fake.Core.Target"
+#r "nuget: Fake.DotNet.Cli"
+#r "nuget: Fake.IO.FileSystem"
+//#r "nuget: FSharp.Core"
+
+#load @".\.fake\build.fsx\intellisense.fsx"
 
 open Fake.Core
 open Fake.IO

@@ -12,7 +12,7 @@ module ScriptsTest =
   let ``Create new virtual machine adapter must not be null`` ()=
   
     let vma =
-      Scripts.VirtualMachineAdapter.create [
+      Scripts.VirtualMachineAdapter.createWithScripts [
       
         Scripts.ScriptEntry.create "SomeScriptName" [
           Scripts.ScriptProperty.float "somefloat" 20.f

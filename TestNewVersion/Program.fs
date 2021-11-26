@@ -1,8 +1,86 @@
-﻿namespace Mutagen.Func
+﻿open Mutagen.Bethesda
+open Mutagen.Bethesda.Skyrim
+open Mutagen.Bethesda.Fallout4
+open Mutagen.Bethesda.Oblivion
 
+open System.IO
+open System
+
+open Mutagen.Bethesda
 open Mutagen.Bethesda.Plugins.Order
 open Mutagen.Bethesda.Skyrim
+open Mutagen.Bethesda.Environments
+
+open System.Linq
 open System.Collections.Generic
+
+///<summary>
+///Module contain some wrappers for create bethesda mods
+///</summary>
+[<RequireQualifiedAccess>]
+module Mods =
+
+  ///<summary>
+  ///Function for create a new skyrim mod, fields mod name, name must include file extension, 
+  ///and SkyrimRelease Enum from Mutagen.Bethesda.Skyrim namespace
+  ///</summary>
+  let createSkyrimMod (modName: string) (skyrimRelease: SkyrimRelease) =
+    SkyrimMod(Plugins.ModKey.FromNameAndExtension(Path.GetFileName(modName.AsSpan())), skyrimRelease)
+
+  ///<summary>
+  ///Function for create a new Fallout4 mod, fields only mod name
+  ///</summary>
+  let createFalloutMod (modName: string) =
+    Fallout4Mod(Plugins.ModKey.FromNameAndExtension(Path.GetFileName(modName.AsSpan())))
+
+  ///<summary>
+  ///Function for create a new Oblivion mod, fields only mod name
+  ///</summary>
+  let createOblivionMod (modName: string) =
+    OblivionMod(Plugins.ModKey.FromNameAndExtension(Path.GetFileName(modName.AsSpan())))
+
+
+module private Internal =
+
+  //Wrapper function for cast IModListing, need for access to some methods
+  let listingGetter (a: IEnumerable<IModListing<ISkyrimModGetter>>) =
+    a.Cast<IModListingGetter<ISkyrimModGetter>>()
+
+///<summary>
+///Module contain functions for get a some loaded orders
+///</summary>
+[<RequireQualifiedAccess>]
+module LoadOrder =
+  
+  ///<summary> 
+  ///Get Skyrim Listed Order from system enviroment, need skyrim release, Enum Mutagen.Bethesda.Skyrim namespace
+  ///</summary>
+  let skyrimListedOrderFromEnv (skyrimRelease: SkyrimRelease) =
+    let env = GameEnvironment.Typical.Skyrim(skyrimRelease)
+    Internal.listingGetter env.LoadOrder.ListedOrder
+
+  ///<summary> 
+  ///Get Skyrim Priority Order from system enviroment, need skyrim release, Enum Mutagen.Bethesda.Skyrim namespace
+  ///</summary>
+  let skyrimPriorityOrderFromEnv (skyrimRelease: SkyrimRelease) =
+    let env = GameEnvironment.Typical.Skyrim(skyrimRelease)
+    Internal.listingGetter env.LoadOrder.ListedOrder
+
+  ///<summary> 
+  ///Get Skyrim Listed Order from system enviroment, return reverse order, need skyrim release, Enum Mutagen.Bethesda.Skyrim namespace
+  ///</summary>
+  let skyrimListedOrderFromEnvRevers (skyrimRelease: SkyrimRelease) =
+    let env = GameEnvironment.Typical.Skyrim(skyrimRelease)
+    Internal.listingGetter env.LoadOrder.ListedOrder
+    |>Seq.rev
+
+  ///<summary> 
+  ///Get Skyrim Priority Order from system enviroment, return reverse order, need skyrim release, Enum Mutagen.Bethesda.Skyrim namespace
+  ///</summary>
+  let skyrimPriorityOrderFromEnvRevers (skyrimRelease: SkyrimRelease) =
+    let env = GameEnvironment.Typical.Skyrim(skyrimRelease)
+    Internal.listingGetter env.LoadOrder.ListedOrder
+    |>Seq.rev
 
 ///<summary>
 ///Module contain functions get and manipulate records

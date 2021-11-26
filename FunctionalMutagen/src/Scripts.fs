@@ -3,6 +3,8 @@
 open Mutagen.Bethesda.Skyrim
 open Mutagen.Bethesda
 
+#nowarn "64"
+
 ///<summary>
 ///Module contains a small DSL for create scripts.
 ///Script entry in Scripts.ScriptEntry
@@ -98,12 +100,38 @@ module Scripts =
 
   [<RequireQualifiedAccess>]
   module VirtualMachineAdapter =
-    
+
     ///<summary>
-    ///Create new VirtualMachineAdapter, can fill ScriptEntry list with Scripts.ScriptEntry.New.
+    ///Create new VirtualMachineAdapter, add ScriptEntry with Scripts.ScriptEntry.create.
     ///</summary>
-    let create (scriptEntryList: ScriptEntry list) =
+    let createWithScript (scriptEntryList: ScriptEntry) =
+      let vm = new VirtualMachineAdapter()
+      vm.Scripts.Add(scriptEntryList)
+      vm
+
+    ///<summary>
+    ///Create new VirtualMachineAdapter, fill ScriptEntry list with Scripts.ScriptEntry.create.
+    ///</summary>
+    let createWithScripts (scriptEntryList: ScriptEntry list) =
       let vm = new VirtualMachineAdapter()
       scriptEntryList
       |>List.iter (fun e -> vm.Scripts.Add(e))
       vm
+
+    let ensureVMAExistAddScript (record: inref<#IScripted>) script =
+      match record.VirtualMachineAdapter with
+      | null ->
+        let newVMA =
+          createWithScript script
+        record.VirtualMachineAdapter <- newVMA
+      | _ ->
+        record.VirtualMachineAdapter.Scripts.Add(script)
+
+    let ensureVMAExistAddScripts (record: inref<#IScripted>) scripts =
+      match record.VirtualMachineAdapter with
+      | null ->
+        let newVMA =
+          createWithScripts scripts
+        record.VirtualMachineAdapter <- newVMA
+      | _ ->
+        for script in scripts do record.VirtualMachineAdapter.Scripts.Add(script)
